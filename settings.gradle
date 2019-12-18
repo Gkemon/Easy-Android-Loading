@@ -1,0 +1,2 @@
+include ':app', ':lovelyloading'
+rootProject.name='Lovely Loading'
