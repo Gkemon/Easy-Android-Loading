@@ -17,8 +17,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        LoadingPopup.getCustomBuilder(this)
-                .setDuration(1)
+        LoadingPopup.Builder.getCustomLoadingBuilder(this)
+                .setDuration(3)
                 .autoCancleable()
                 .init();
 
@@ -27,12 +27,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 LoadingPopup.showLoadingPopUp(MainActivity.this);
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        LoadingPopup.hideLoadingPopUp();
-                    }
-                },3000);
                 //startActivity(new Intent(MainActivity.this,SecondActivity.class));
             }
         });

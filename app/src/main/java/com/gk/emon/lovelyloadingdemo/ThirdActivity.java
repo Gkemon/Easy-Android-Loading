@@ -13,7 +13,7 @@ public class ThirdActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_third);
 
-      LoadingPopup.hideLoadingPopUp();
+        LoadingPopup.hideLoadingPopUp();
 
     }
 
