@@ -1,10 +1,11 @@
-package com.gk.emon.lovelyloadingdemo;
+package com.gk.emon.lovelyLoadingDemo;
 
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.gk.emon.lovelyloading.LoadingPopup;
+import com.gk.emon.lovelyLoading.LoadingPopup;
+
 
 public class ThirdActivity extends AppCompatActivity {
 

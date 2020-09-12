@@ -1,13 +1,12 @@
-package com.gk.emon.lovelyloadingdemo;
+package com.gk.emon.lovelyLoadingDemo;
+
+import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Handler;
-import android.view.View;
+import com.gk.emon.lovelyLoading.LoadingPopup;
 
-import com.gk.emon.lovelyloading.LoadingPopup;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,24 +16,23 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        LoadingPopup.Builder.getCustomLoadingBuilder(this)
-                .setDuration(3)
-                .autoCancleable()
-                .init();
-
+        LoadingPopup.getInstance(this)
+                .customLoading()
+                .setCustomViewID(R.layout.dialog_lottie_loading_popup)
+                .doIntentionalDelay()
+                .setDelayDurationInMillSec(3000)
+                .build();
 
         findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LoadingPopup.showLoadingPopUp(MainActivity.this);
-                //startActivity(new Intent(MainActivity.this,SecondActivity.class));
+                LoadingPopup.showLoadingPopUp();
             }
         });
         findViewById(R.id.button2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 LoadingPopup.hideLoadingPopUp();
-                //startActivity(new Intent(MainActivity.this,ThirdActivity.class));
             }
         });
     }

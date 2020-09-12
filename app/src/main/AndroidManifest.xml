@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.gk.emon.lovelyloadingdemo">
+    package="com.gk.emon.lovelyLoadingDemo">
 
     <application
         android:allowBackup="true"
@@ -10,16 +10,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.gk.emon.lovelyloadingdemo.SecondActivity"
+            android:name="com.gk.emon.lovelyLoadingDemo.SecondActivity"
             android:label="@string/title_activity_second"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-            android:name="com.gk.emon.lovelyloadingdemo.ThirdActivity"
+            android:name="com.gk.emon.lovelyLoadingDemo.ThirdActivity"
             android:label="@string/title_activity_second"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name="com.gk.emon.lovelyloadingdemo.MainActivity">
+        <activity android:name="com.gk.emon.lovelyLoadingDemo.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

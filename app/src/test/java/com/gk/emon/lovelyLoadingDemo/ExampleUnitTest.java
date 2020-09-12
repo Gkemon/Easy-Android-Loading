@@ -1,4 +1,4 @@
-package com.gk.emon.lovelyloadingdemo;
+package com.gk.emon.lovelyLoadingDemo;
 
 import org.junit.Test;
 
