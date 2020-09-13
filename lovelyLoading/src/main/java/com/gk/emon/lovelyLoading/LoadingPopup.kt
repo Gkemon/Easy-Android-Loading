@@ -11,17 +11,21 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.View
-import androidx.annotation.ColorInt
+import android.view.WindowManager
 import androidx.annotation.ColorRes
+import androidx.annotation.IntRange
 import androidx.annotation.LayoutRes
+import androidx.core.content.ContextCompat
 import com.airbnb.lottie.LottieAnimationView
 
-class  LoadingPopup(context: Context) : Dialog(context) {
-    val TAG: String = LoadingPopup::class.java.simpleName
+class LoadingPopup(context: Context) : Dialog(context) {
     private var intentionalDelayInMillSec: Long = 0
-    @ColorInt
-    var backgroundColor: Int = Color.TRANSPARENT
-    private var opacity = 50
+
+    @ColorRes
+    var backgroundColor: Int = android.R.color.transparent
+
+    @IntRange(from = 0, to = 100)
+    private var opacity = DEFAULT_OPACITY
     private var isQueued = false
 
     @LayoutRes
@@ -30,7 +34,7 @@ class  LoadingPopup(context: Context) : Dialog(context) {
         intentionalDelayInMillSec = millSec
     }
 
-    fun setCustomViewID(customLayoutID: Int, backgroundColor: Int) {
+    fun setCustomViewID(customLayoutID: Int, @ColorRes backgroundColor: Int) {
         this.customLayoutID = customLayoutID
         this.backgroundColor = backgroundColor
     }
@@ -39,7 +43,7 @@ class  LoadingPopup(context: Context) : Dialog(context) {
         this.opacity = opacity
     }
 
-    fun autoCancelable() {
+    fun setCancelable() {
         setCancelable(true)
     }
 
@@ -53,7 +57,6 @@ class  LoadingPopup(context: Context) : Dialog(context) {
             setContentView(R.layout.dialog_lottie_loading_popup)
             val lottieAnimationView: LottieAnimationView = findViewById(R.id.v_lottie)
             lottieAnimationView.setAnimation("Loading.json")
-            if (window != null) window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         } else {
             val vContent = layoutInflater.inflate(customLayoutID, null)
 
@@ -62,14 +65,23 @@ class  LoadingPopup(context: Context) : Dialog(context) {
              * So then it should be get the background color from the inflated view from layout
              * resource id which will be shown as the water mark. If all of these approach get any exception
              * then black color with 50% opacity (default opacity) will be set*/
-            if(backgroundColor==Color.TRANSPARENT)
+            if (backgroundColor == Color.TRANSPARENT)
                 vContent.setBackgroundColor(Color.parseColor(ColorTransparentUtils
                         .transparentColor(getBackgroundColor(vContent), opacity)))
-            else vContent.setBackgroundColor(Color.parseColor(ColorTransparentUtils
-                    .transparentColor(backgroundColor, opacity)))
+            else {
+                vContent.setBackgroundColor(Color.parseColor(ColorTransparentUtils
+                        .transparentColor(ContextCompat.getColor(context, backgroundColor), opacity)))
+            }
 
             setContentView(vContent)
         }
+        window?.let {
+            it.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            it.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+            it.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
+        }
+
+
     }
 
     private fun getBackgroundColor(view: View): Int {
@@ -115,7 +127,7 @@ class  LoadingPopup(context: Context) : Dialog(context) {
     }
 
     interface FinalStep {
-        fun autoCancelable(): FinalStep
+        fun cancelable(): FinalStep
         fun setBackgroundOpacity(opacity: Int): FinalStep
         fun build()
     }
@@ -127,22 +139,22 @@ class  LoadingPopup(context: Context) : Dialog(context) {
 
         @LayoutRes
         private var customLayoutID = 0
-        private var opacity = 0
+        private var opacity = DEFAULT_OPACITY
 
         @ColorRes
-        private var backgroundColor = 0
+        private var backgroundColor = android.R.color.transparent
         override fun setCustomViewID(customLayoutID: Int): DelayStep {
             this.customLayoutID = customLayoutID
             return this
         }
 
-        override fun setCustomViewID(customLayoutID: Int, backgroundColor: Int): DelayStep {
+        override fun setCustomViewID(customLayoutID: Int,@ColorRes backgroundColor: Int): DelayStep {
             this.customLayoutID = customLayoutID
             this.backgroundColor = backgroundColor
             return this
         }
 
-        override fun autoCancelable(): FinalStep {
+        override fun cancelable(): FinalStep {
             isAutoCancelable = true
             return this
         }
@@ -154,7 +166,7 @@ class  LoadingPopup(context: Context) : Dialog(context) {
 
         override fun build() {
             dialog.setIntentionalDelayInMillSec(intentionalDelayInMillSec)
-            if (isAutoCancelable) dialog.autoCancelable()
+            if (isAutoCancelable) dialog.setCancelable()
             dialog.setCustomViewID(customLayoutID, backgroundColor)
             dialog.setOpacity(opacity)
             dialog.configureResources()
@@ -189,6 +201,7 @@ class  LoadingPopup(context: Context) : Dialog(context) {
                             override fun onActivityStarted(activity: Activity) {}
                             override fun onActivityResumed(activity: Activity) {
                                 dialog = LoadingPopup(activity)
+                                build()
                             }
 
                             override fun onActivityPaused(activity: Activity) {}
@@ -227,6 +240,8 @@ class  LoadingPopup(context: Context) : Dialog(context) {
                 loadingBuilder = it
             }
         }
+
         private val TAG: String = LoadingPopup::class.java.simpleName
+        private const val DEFAULT_OPACITY = 50
     }
 }

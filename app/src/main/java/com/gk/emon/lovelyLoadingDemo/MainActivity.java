@@ -17,11 +17,25 @@ public class MainActivity extends AppCompatActivity {
 
 
         LoadingPopup.getInstance(this)
-                .customLoading()
-                .setCustomViewID(R.layout.dialog_lottie_loading_popup)
-                .doIntentionalDelay()
-                .setDelayDurationInMillSec(3000)
+                .defaultLoading()
                 .build();
+
+
+//        LoadingPopup.getInstance(this)
+//                .customLoading()
+//                .setCustomViewID(R.layout.activity_second,android.R.color.holo_red_dark)
+//                .doIntentionalDelay()
+//                .setDelayDurationInMillSec(5000)
+//                .setBackgroundOpacity(70)
+//                .build();
+
+//        LoadingPopup.getInstance(this)
+//                .customLoading()
+//                .setCustomViewID(R.layout.activity_second,android.R.color.holo_red_dark)
+//                .doIntentionalDelay()
+//                .setDelayDurationInMillSec(5000)
+//                .setBackgroundOpacity(70)
+//                .build();
 
         findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override
