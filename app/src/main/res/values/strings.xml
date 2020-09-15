@@ -1,4 +1,14 @@
 <resources>
     <string name="app_name">Lovely Loading</string>
     <string name="title_activity_second">SecondActivity</string>
+    <string name="want_to_sometimes_delay_intentionally">Want to delay intentionally sometimes ?</string>
+    <string name="show_the_custom_dialog">Do configure and show the custom loading using user defined layout resource
+        ,background color,opacity level and with intentional time delay.Will be close after a
+    4 second fake and simulated latency</string>
+    <string name="show_the_default_progress">Do configure and show the default lovely loading. Will be close after a
+    4 second fake and simulated latency </string>
+    <string name="want_to_set_background_color">Want to set background color?</string>
+    <string name="select_background_color">Select background color</string>
+    <string name="set_opacity_level_must_between_0_100_default_is_30">Set opacity level must between 0-100.(Default is 30)</string>
+    <string name="want_to_set_opacity_level">Want to set opacity level ?</string>
 </resources>

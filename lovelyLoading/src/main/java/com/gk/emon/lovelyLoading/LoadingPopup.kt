@@ -108,7 +108,7 @@ class LoadingPopup(context: Context) : Dialog(context) {
     }
 
     interface TypeStep {
-        fun defaultLoading(): FinalStep
+        fun defaultLovelyLoading(): FinalStep
         fun customLoading(): CustomLayoutStep
     }
 
@@ -172,7 +172,7 @@ class LoadingPopup(context: Context) : Dialog(context) {
             dialog.configureResources()
         }
 
-        override fun defaultLoading(): FinalStep {
+        override fun defaultLovelyLoading(): FinalStep {
             return this
         }
 
@@ -242,6 +242,6 @@ class LoadingPopup(context: Context) : Dialog(context) {
         }
 
         private val TAG: String = LoadingPopup::class.java.simpleName
-        private const val DEFAULT_OPACITY = 50
+        private const val DEFAULT_OPACITY = 30
     }
 }

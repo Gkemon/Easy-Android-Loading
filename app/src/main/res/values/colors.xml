@@ -3,4 +3,22 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="colorGreen">#89FF00</color>
+    <color name="colorRed">#F44336</color>
+    <color name="colorYellow">#FFEB3B</color>
+    <color name="colorOrange">#FF9800</color>
+    <color name="colorBlue">#DC2196F3</color>
+    <color name="colorBlack">#000000</color>
+
+    <string-array name="colors">
+        <item>@color/colorPrimary</item>
+        <item>@color/colorPrimaryDark</item>
+        <item>@color/colorAccent</item>
+        <item>@color/colorGreen</item>
+        <item>@color/colorRed</item>
+        <item>@color/colorYellow</item>
+        <item>@color/colorOrange</item>
+        <item>@color/colorBlue</item>
+        <item>@color/colorBlack</item>
+    </string-array>
 </resources>
