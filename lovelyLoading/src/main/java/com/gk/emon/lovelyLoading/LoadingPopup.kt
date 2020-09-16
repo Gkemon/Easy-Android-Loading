@@ -27,6 +27,7 @@ class LoadingPopup(context: Context) : Dialog(context) {
     @IntRange(from = 0, to = 100)
     private var opacity = DEFAULT_OPACITY
     private var isQueued = false
+    private lateinit var vContent: View
 
     @LayoutRes
     private var customLayoutID = 0
@@ -52,27 +53,32 @@ class LoadingPopup(context: Context) : Dialog(context) {
         configureResources()
     }
 
+    private fun setupBackgroundColorWithOpacity() {
+        /**defaultBackgroundColor not black means user set a default color as watermark
+         * background.If default color is black that means a default color is not set.
+         * So then it should be get the background color from the inflated view from layout
+         * resource id which will be shown as the water mark. If all of these approach get any exception
+         * then black color with 50% opacity (default opacity) will be set*/
+        if (backgroundColor == android.R.color.transparent)
+            vContent.setBackgroundColor(Color.parseColor(ColorTransparentUtils
+                    .transparentColor(getBackgroundColor(vContent), opacity)))
+        else {
+            vContent.setBackgroundColor(Color.parseColor(ColorTransparentUtils
+                    .transparentColor(ContextCompat.getColor(context, backgroundColor), opacity)))
+        }
+    }
+
     private fun configureResources() {
+        /** customLayoutID==0 means no custom layout is set. So it should show default layout. */
         if (customLayoutID == 0) {
-            setContentView(R.layout.dialog_lottie_loading_popup)
+            vContent = layoutInflater.inflate(R.layout.dialog_lottie_loading_popup, null)
+            setupBackgroundColorWithOpacity();
+            setContentView(vContent)
             val lottieAnimationView: LottieAnimationView = findViewById(R.id.v_lottie)
             lottieAnimationView.setAnimation("Loading.json")
         } else {
-            val vContent = layoutInflater.inflate(customLayoutID, null)
-
-            /**defaultBackgroundColor not black means user set a default color as watermark
-             * background.If default color is black that means a default color is not set.
-             * So then it should be get the background color from the inflated view from layout
-             * resource id which will be shown as the water mark. If all of these approach get any exception
-             * then black color with 50% opacity (default opacity) will be set*/
-            if (backgroundColor == Color.TRANSPARENT)
-                vContent.setBackgroundColor(Color.parseColor(ColorTransparentUtils
-                        .transparentColor(getBackgroundColor(vContent), opacity)))
-            else {
-                vContent.setBackgroundColor(Color.parseColor(ColorTransparentUtils
-                        .transparentColor(ContextCompat.getColor(context, backgroundColor), opacity)))
-            }
-
+            vContent = layoutInflater.inflate(customLayoutID, null)
+            setupBackgroundColorWithOpacity()
             setContentView(vContent)
         }
         window?.let {
@@ -89,46 +95,31 @@ class LoadingPopup(context: Context) : Dialog(context) {
         if (drawable is ColorDrawable) {
             return drawable.color
         }
-        return backgroundColor
+        return Color.TRANSPARENT
+    }
+
+    override fun hide() {
+        if (intentionalDelayInMillSec != 0L) {
+            Handler(Looper.getMainLooper()).postDelayed({
+               super.hide()
+            }, intentionalDelayInMillSec)
+        } else {
+            super.hide()
+        }
+
     }
 
     override fun show() {
-        if (intentionalDelayInMillSec != 0L) {
-            if (!isQueued) {
-                isQueued = true
-                super.show()
-                Handler(Looper.getMainLooper()).postDelayed({
-                    hideLoadingPopUp()
-                    isQueued = false
-                }, intentionalDelayInMillSec)
-            }
-        } else {
+        if (!isShowing) {
             super.show()
         }
     }
 
-    interface TypeStep {
-        fun defaultLovelyLoading(): FinalStep
-        fun customLoading(): CustomLayoutStep
-    }
-
-    interface CustomLayoutStep {
-        fun setCustomViewID(@LayoutRes customLayoutID: Int): DelayStep
-        fun setCustomViewID(@LayoutRes customLayoutID: Int, @ColorRes backgroundColor: Int): DelayStep
-    }
-
-    interface DelayStep {
-        fun doIntentionalDelay(): DelayDurationStep
-        fun noIntentionalDelay(): FinalStep
-    }
-
-    interface DelayDurationStep {
-        fun setDelayDurationInMillSec(millSec: Long): FinalStep
-    }
 
     interface FinalStep {
         fun cancelable(): FinalStep
-        fun setBackgroundOpacity(opacity: Int): FinalStep
+        fun setBackgroundOpacity(@IntRange(from = 0, to = 100) opacity: Int): FinalStep
+        fun setBackgroundColor(@ColorRes colorId: Int): FinalStep
         fun build()
     }
 
@@ -148,7 +139,7 @@ class LoadingPopup(context: Context) : Dialog(context) {
             return this
         }
 
-        override fun setCustomViewID(customLayoutID: Int,@ColorRes backgroundColor: Int): DelayStep {
+        override fun setCustomViewID(customLayoutID: Int, @ColorRes backgroundColor: Int): DelayStep {
             this.customLayoutID = customLayoutID
             this.backgroundColor = backgroundColor
             return this
@@ -161,6 +152,11 @@ class LoadingPopup(context: Context) : Dialog(context) {
 
         override fun setBackgroundOpacity(opacity: Int): FinalStep {
             this.opacity = opacity
+            return this
+        }
+
+        override fun setBackgroundColor(colorId: Int): FinalStep {
+            this.backgroundColor = colorId;
             return this
         }
 
@@ -220,6 +216,25 @@ class LoadingPopup(context: Context) : Dialog(context) {
 
     companion object {
         private lateinit var loadingBuilder: LoadingBuilder
+
+        interface TypeStep {
+            fun defaultLovelyLoading(): FinalStep
+            fun customLoading(): CustomLayoutStep
+        }
+
+        interface CustomLayoutStep {
+            fun setCustomViewID(@LayoutRes customLayoutID: Int): DelayStep
+            fun setCustomViewID(@LayoutRes customLayoutID: Int, @ColorRes backgroundColor: Int): DelayStep
+        }
+
+        interface DelayStep {
+            fun doIntentionalDelay(): DelayDurationStep
+            fun noIntentionalDelay(): FinalStep
+        }
+
+        interface DelayDurationStep {
+            fun setDelayDurationInMillSec(millSec: Long): FinalStep
+        }
 
         @JvmStatic
         fun showLoadingPopUp() = try {

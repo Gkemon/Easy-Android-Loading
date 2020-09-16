@@ -4,43 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         tools:context=".MainActivity">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:gravity="center"
-            android:text="@string/show_the_default_progress" />
-
-
-        <include
-            android:id="@+id/btn_default_show"
-            layout="@layout/include_btn" />
-
-        <View
-            android:background="@color/colorBlack"
-            android:layout_width="match_parent"
-            android:layout_height="3dp">
-        </View>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:gravity="center"
-            android:text="@string/show_the_custom_dialog" />
-
-        <CheckBox
-            android:id="@+id/cb_delay"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/want_to_sometimes_delay_intentionally" />
-
         <CheckBox
             android:id="@+id/cb_bg"
             android:layout_width="wrap_content"
@@ -54,32 +23,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/want_to_set_opacity_level" />
-
-
-        <LinearLayout
-            android:visibility="gone"
-            tools:visibility="visible"
-            android:id="@+id/ll_delay"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:gravity="center"
-                android:text="Set intentional delay in millisecond" />
-
-            <EditText
-                android:id="@+id/et_delay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="10dp"
-                android:inputType="numberDecimal"
-                android:text="0" />
-        </LinearLayout>
-
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/bt_color_select"
@@ -99,38 +42,102 @@
             android:visibility="gone"
             app:backgroundTint="@color/colorBlack"
             tools:visibility="visible" />
-    <LinearLayout
-        android:visibility="gone"
-        tools:visibility="visible"
-        android:id="@+id/ll_opacity"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/ll_opacity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:text="@string/set_opacity_level_must_between_0_100_default_is_30" />
+
+            <EditText
+                android:id="@+id/et_opacity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:inputType="numberDecimal"
+                android:text="30" />
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@color/colorBlack" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:gravity="center"
-            android:text="@string/set_opacity_level_must_between_0_100_default_is_30" />
+            android:text="@string/show_the_default_progress" />
 
-        <EditText
-            android:id="@+id/et_opacity"
+
+        <include
+            android:id="@+id/btn_default_show"
+            layout="@layout/include_btn" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@color/colorBlack" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:text="@string/show_the_custom_dialog" />
+
+        <CheckBox
+            android:id="@+id/cb_delay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="10dp"
-            android:inputType="numberDecimal"
-            android:text="30" />
-    </LinearLayout>
+            android:text="@string/want_to_sometimes_delay_intentionally" />
+
+
+        <LinearLayout
+            android:id="@+id/ll_delay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:text="Set intentional delay in millisecond" />
+
+            <EditText
+                android:id="@+id/et_delay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:inputType="numberDecimal"
+                android:text="0" />
+        </LinearLayout>
+
 
         <include
             android:id="@+id/btn_custom_show"
             layout="@layout/include_btn" />
+
         <View
-            android:background="@color/colorBlack"
             android:layout_width="match_parent"
-            android:layout_height="3dp">
-        </View>
+            android:layout_height="3dp"
+            android:background="@color/colorBlack" />
 
     </LinearLayout>
 </ScrollView>

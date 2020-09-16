@@ -26,9 +26,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var btnDefaultShow: View
     private lateinit var btnCustomShow: View
     private lateinit var btnColor: Button
+    private lateinit var llOpacity: View
+    private lateinit var llDelay: View
 
     @ColorRes
-    private var colorSelected = R.color.colorBlack
+    private var bgColorSelected = android.R.color.transparent
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -46,10 +48,43 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun doConfigureAndShowDefaultLovelyLoading() {
-        getInstance(this)
-                .defaultLovelyLoading()
-                .setBackgroundOpacity(70)
-                .build()
+
+        if (bgColorSelected == android.R.color.transparent) {
+            if (llOpacity.visibility == View.VISIBLE) {
+                etOpacity.text.toString().toIntOrNull()?.let {
+                    /**When only opacity is set*/
+                    getInstance(this)
+                            .defaultLovelyLoading()
+                            .setBackgroundOpacity(it)
+                            .build()
+                }
+            } else {
+                /**When none of opacity and background color is set*/
+                getInstance(this)
+                        .defaultLovelyLoading()
+                        .build()
+            }
+
+        } else {
+            if (llOpacity.visibility == View.VISIBLE) {
+
+                etOpacity.text.toString().toIntOrNull()?.let {
+                    /**When both opacity and background color is set*/
+                    getInstance(this)
+                            .defaultLovelyLoading()
+                            .setBackgroundColor(bgColorSelected)
+                            .setBackgroundOpacity(it)
+                            .build()
+                }
+            } else {
+                /**When only background color is set*/
+                getInstance(this)
+                        .defaultLovelyLoading()
+                        .setBackgroundColor(bgColorSelected)
+                        .build()
+            }
+        }
+
 
         LoadingPopup.showLoadingPopUp()
 
@@ -61,13 +96,42 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun doConfigureAndShowCustomLovelyLoading() {
-        getInstance(this)
+
+        val delayDurationStep: LoadingPopup.Companion.DelayDurationStep?
+        var finalStep: LoadingPopup.FinalStep? = null
+
+
+        val delayStep: LoadingPopup.Companion.DelayStep? = if (bgColorSelected != android.R.color.transparent)
+            getInstance(this)
+                    /**If bg color is set*/
+                    .customLoading()
+                    .setCustomViewID(R.layout.layout_my_custom_loading, bgColorSelected)
+        else getInstance(this)
+                /**If bg color is not set*/
                 .customLoading()
-                .setCustomViewID(R.layout.layout_my_custom_loading, android.R.color.holo_red_dark)
-                .doIntentionalDelay()
-                .setDelayDurationInMillSec(5000)
-                .setBackgroundOpacity(70)
-                .build()
+                .setCustomViewID(R.layout.layout_my_custom_loading)
+
+        if (llDelay.visibility == View.VISIBLE) {
+            delayDurationStep = delayStep?.doIntentionalDelay()
+            etDelay.text.toString().toLongOrNull()?.let {
+                finalStep = delayDurationStep?.setDelayDurationInMillSec(it)
+            }
+        } else {
+            finalStep = delayStep?.noIntentionalDelay()
+        }
+
+        if (llOpacity.visibility == View.VISIBLE) {
+            etOpacity.text.toString().toIntOrNull()?.let {
+                finalStep?.setBackgroundOpacity(it)
+            }
+        }
+
+        if (btnColor.visibility == View.VISIBLE) {
+            finalStep?.setBackgroundColor(bgColorSelected)
+        }
+
+        finalStep?.build()
+
 
         LoadingPopup.showLoadingPopUp()
 
@@ -85,21 +149,29 @@ class MainActivity : AppCompatActivity() {
         btnDefaultShow = findViewById(R.id.btn_default_show)
         btnCustomShow = findViewById(R.id.btn_custom_show)
         btnColor = findViewById(R.id.bt_color_select)
+        llDelay = findViewById(R.id.ll_delay)
+        llOpacity = findViewById(R.id.ll_opacity)
+
         btnCustomShow.setOnClickListener { doConfigureAndShowCustomLovelyLoading() }
         btnDefaultShow.setOnClickListener { doConfigureAndShowDefaultLovelyLoading() }
         cbBg.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) btnColor.visibility =
-                    View.VISIBLE else btnColor.visibility = View.GONE
+                    View.VISIBLE else {
+                btnColor.visibility = View.GONE
+                bgColorSelected = android.R.color.transparent
+            }
         }
         cbDelay.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked)
-                findViewById<View>(R.id.ll_delay).visibility = View.VISIBLE
-            else findViewById<View>(R.id.ll_delay).visibility = View.GONE
+                llDelay.visibility = View.VISIBLE
+            else {
+                llDelay.visibility = View.GONE
+            }
         }
         cbOpacity.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked)
-                findViewById<View>(R.id.ll_opacity).visibility = View.VISIBLE
-            else findViewById<View>(R.id.ll_opacity).visibility = View.GONE
+                llOpacity.visibility = View.VISIBLE
+            else llOpacity.visibility = View.GONE
         }
         btnColor.setOnClickListener {
             val colorPicker = ColorPicker(this@MainActivity)
@@ -111,7 +183,7 @@ class MainActivity : AppCompatActivity() {
                                     R.color.colorAccent, R.color.colorGreen, R.color.colorRed,
                                     R.color.colorYellow, R.color.colorOrange, R.color.colorBlue,
                                     R.color.colorBlack)
-                            colorSelected = colors[position]
+                            bgColorSelected = colors[position]
                             btnColor.background.mutate().colorFilter = PorterDuffColorFilter(
                                     getColor(this@MainActivity, colors[position]), PorterDuff.Mode.SRC)
                         }
