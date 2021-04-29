@@ -1,2 +1,2 @@
-include ':app', ':lovelyLoading'
-rootProject.name='Lovely Loading'
+include ':app', ':easy_loading'
+rootProject.name='Easy Android Loading'
