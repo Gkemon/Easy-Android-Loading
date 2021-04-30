@@ -1,5 +1,5 @@
 <!-- ⚠️ This README has been generated from the file(s) "blueprint.md" link - https://github.com/andreasbm/readme ⚠️--><p align="center">
-  <img src="https://github.com/Gkemon/Android-XML-to-PDF-Generator/blob/master/logo.png" alt="Logo" width="150" height="150"  />
+  <img src="https://github.com/Gkemon/Easy-Android-Loading/blob/master/easy-loading.webp" alt="Logo" width="200" height="150"  />
 </p>
 <h1 align="center">XML to PDF Generator For Android</h1>
  <p align="center">
