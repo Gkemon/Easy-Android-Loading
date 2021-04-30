@@ -9,20 +9,12 @@
 </p>
 
 <p align="center">
-  <b>Automatically generate PDF file from XML file or Java's View object in Android</b></br>
+  <b>Show/</b></br>
   <p align="center"> Make PDF from Android layout resources (e.g - R.layout.myLayout,R.id.viewID), Java's view ids or directly views objects <p>
 </p>
 
 <br />
 
-
-<p align="center">
-  <!-- GIF <img src="https://raw.githubusercontent.com/andreasbm/readme/master/assets/demo.gif" alt="Demo" width="800" /> --!>
-</p>
-
-* **Simple**: Extremely simple to use. For using <b>Step Builder Design Patten</b> undernath,here IDE greatly helps developers to complete the steps for creating a PDF from XMLs.
-* **Powerful**: Customize almost everything.
-* **Transparent**: It shows logs,success-responses, failure-responses , that's why developer will nofity any event inside the process. 
 
 <details>
 <summary>📖 Table of Contents</summary>
