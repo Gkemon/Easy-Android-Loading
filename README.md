@@ -60,7 +60,7 @@ dependencies {
 
 ## ➤ Getting Started
 
-### Setup default configure :
+### Setup default configuration :
 
 
 ```
@@ -92,7 +92,7 @@ class MainActivity : AppCompatActivity() {
        }
 ```
 
-### Setup custom configure :
+### Setup custom configuration :
 
 
 ```
