@@ -73,7 +73,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 	
        /* It is the Mandatory configuration which is needed to be
-        * declare after calling setContentView */
+        * declare after calling setContentView --*/
         
        LoadingPopup.getInstance(activity)
                    .defaultLovelyLoading()
@@ -81,17 +81,15 @@ class MainActivity : AppCompatActivity() {
 		   
 	/*OR*/	   
 		   
-       /* If adding background color or opacity is needed */
+       /* If adding background color or opacity is needed then -- */
         LoadingPopup.getInstance(activity)
                             .defaultLovelyLoading()
                             .setBackgroundColor(android.R.color.holo_red_dark)
                             .setBackgroundOpacity(opacity)/*Int between 0-100*/
                             .build()
         .
-	.
-	.
-			    
-       
+	.	    
+       }
 ```
 
 
