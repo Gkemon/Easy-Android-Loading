@@ -92,6 +92,34 @@ class MainActivity : AppCompatActivity() {
        }
 ```
 
+### Setup custom configure :
+
+
+```
+class MainActivity : AppCompatActivity() {
+     .
+     .
+     .
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+	
+       LoadingPopup.getInstance(activity)
+                .customLoading()
+                .setCustomViewID(R.layout.layout_my_custom_loading)
+		 /*layout resource id which holds the custom loading view. If setting up  
+		  *background color is needed for inputted layout then call it like that
+		  *setCustomViewID(R.layout.layout_my_custom_loading,R.color.my_color)*/
+                .doIntentionalDelay()
+		/*If intentional delay is needed. Otherwise call .noIntentionalDelay()*/
+                .setDelayDurationInMillSec(5000)
+                .setBackgroundOpacity(70)
+                .build()
+
+        .
+	.	    
+       }
+```
 
 ### How to print an Invoice Or Report ? 
 Sometimes people gets stuck to print invoice or report via this library.So I wrote an example invoice/report printing fragment to visualise how to print an <b>Invoice</b> or <b>Report</b>. Here is [the link also with an important documentation](https://github.com/Gkemon/Android-XML-to-PDF-Generator/blob/608b873e9f21ed1dbf345a191337a5a548fd3517/sample/src/main/java/com/emon/exampleXMLtoPDF/demoInvoice/DemoInvoiceFragment.java#L61) 
