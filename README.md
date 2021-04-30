@@ -72,8 +72,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 	
-       /* It is the Mandatory configuration which is needed to be
-        * declare after calling setContentView --*/
+       /* It is the mandatory configuration which is needed to be
+        * declared after calling setContentView --*/
         
        LoadingPopup.getInstance(activity)
                    .defaultLovelyLoading()
@@ -108,7 +108,7 @@ class MainActivity : AppCompatActivity() {
                 .customLoading()
                 .setCustomViewID(R.layout.layout_my_custom_loading)
 		 /*layout resource id which holds the custom loading view. If setting up  
-		  *background color is needed for inputted layout then call it like that
+		  *background color is needed for the inputted layout then call it like that
 		  *setCustomViewID(R.layout.layout_my_custom_loading,R.color.my_color)*/
                 .doIntentionalDelay()
 		/*If intentional delay is needed. Otherwise call .noIntentionalDelay()*/
@@ -125,11 +125,12 @@ class MainActivity : AppCompatActivity() {
 
 ```
 
-  /* For showing loading just call--*/
-  LoadingPopup.showLoadingPopUp()
+          /* For showing loading just call  --> */
+           LoadingPopup.showLoadingPopUp()
   
-  /* For hiding loading just call--*/
-  LoadingPopup.hideLoadingPopUp()
+  
+          /* For hiding loading just call --> */
+           LoadingPopup.hideLoadingPopUp()
   
 ```
 <p>
