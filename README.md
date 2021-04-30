@@ -132,7 +132,14 @@ class MainActivity : AppCompatActivity() {
   LoadingPopup.hideLoadingPopUp()
   
 ```
-
+<p>
+  <a href="https://www.linkedin.com/in/gk-mohammad-emon-0301b7104" rel="nofollow noreferrer">
+    <img src="https://i.stack.imgur.com/gVE0j.png" alt="linkedin"> LinkedIn
+  </a> &nbsp; 
+  <a href="emon.info2013@gmail.com">
+   <img width="20" src="https://user-images.githubusercontent.com/5141132/50740364-7ea80880-1217-11e9-8faf-2348e31beedd.png" alt="inbox"> Inbox
+  </a>
+</p>
 
 #### Logo credit: [Alex Gorbunov](https://dribbble.com/shots/11116681-Spiral-pre-loader-concept)
 
