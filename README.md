@@ -4,7 +4,7 @@
 <h1 align="center">Easy Loading For Android By Just One Lined Code !!!</h1>
  <p align="center">
 		<a href="https://github.com/Gkemon/Easy-Android-Loading/"><img alt="Maintained" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" height="20"/></a>
-	<a href="https://github.com/Gkemon/Easy-Android-Loading/r"><img alt="Maintained" src="https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg" height="20"/></a>
+	<a href="https://github.com/Gkemon/Easy-Android-Loading/"><img alt="Maintained" src="https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg" height="20"/></a>
 
 </p>
 
