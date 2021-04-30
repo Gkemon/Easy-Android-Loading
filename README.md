@@ -9,8 +9,7 @@
 </p>
 
 <p align="center">
-  <b>Show/</b></br>
-  <p align="center"> Make PDF from Android layout resources (e.g - R.layout.myLayout,R.id.viewID), Java's view ids or directly views objects <p>
+  <b>Just configure a singleton loading instance once and show and hide from anywhere (Activity or Fragment).</b></br>
 </p>
 
 <br />
@@ -37,17 +36,6 @@
 **Step 1**. Add the JitPack repository to your root ```build.gradle``` at the end of repositories
 ```
 android {
- .
- .
-  
-   /*Need Java version 1.8 as Rx java is used for file write underneath for preventing UI freezing*/
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
- .
- .
-}
  .
  .
 allprojects {
