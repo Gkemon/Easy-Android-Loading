@@ -1,7 +1,7 @@
 <!-- ⚠️ This README has been generated from the file(s) "blueprint.md" link - https://github.com/andreasbm/readme ⚠️--><p align="center">
   <img src="https://github.com/Gkemon/Easy-Android-Loading/blob/master/easy-loading.webp" alt="Logo" width="300" height="240"  />
 </p>
-<h1 align="center">Easy Loading For Android By Just One Lined Code !!!</h1>
+<h1 align="center">Easy Loading For Android By Just A One Lined Code !!!</h1>
  <p align="center">
 		<a href="https://github.com/Gkemon/Easy-Android-Loading/"><img alt="Maintained" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" height="20"/></a>
 	<a href="https://github.com/Gkemon/Easy-Android-Loading/"><img alt="Maintained" src="https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg" height="20"/></a>
@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <b>Just configure a singleton loading instance once and show and hide from anywhere (Activity or Fragment).</b></br>
+  <b>Just configure a singleton loading instance once without additional boilerplate code and reuse it to show and hide from anywhere (Both Activity or Fragment) you want .</b></br>
 </p>
 
 <br />
