@@ -75,7 +75,7 @@ allprojects {
 **Step 2**. Add the dependency
 ```
 dependencies {
-        implementation 'com.github.Gkemon:XML-to-PDF-generator:2.4'
+  implementation 'com.github.Gkemon:Easy-Android-Loading:v1.0'
 }
 ```	
 [![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#getting-started-quick)
