@@ -1,4 +1,4 @@
-package com.gk.emon.lovelyLoadingDemo;
+package com.gk.emon.easyLoadingDemo;
 
 import android.os.Bundle;
 
