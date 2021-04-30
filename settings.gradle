@@ -1,2 +1,2 @@
-include ':app', ':easy_loading'
+include ':app', ':easy-loading'
 rootProject.name='Easy Android Loading'
