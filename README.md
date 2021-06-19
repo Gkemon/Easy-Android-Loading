@@ -51,7 +51,7 @@ allprojects {
 **Step 2**. Add the dependency
 ```
 dependencies {
-  implementation 'com.github.Gkemon:Easy-Android-Loading:v1.0'
+  implementation 'com.github.Gkemon:Easy-Android-Loading:1.1'
 }
 ```	
 [![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#getting-started-quick)
