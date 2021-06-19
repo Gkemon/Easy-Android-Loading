@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
                 .customLoading()
                 .setCustomViewID(R.layout.layout_my_custom_loading, android.R.color.holo_red_dark)
                 .doIntentionalDelay()
-                .setDelayDurationInMillSec(5000)
+                .setDelayDurationInMillSec(1000)
                 .setBackgroundOpacity(70)
                 .build()
 
@@ -55,6 +55,7 @@ class MainActivity : AppCompatActivity() {
                     /**When only opacity is set*/
                     getInstance(this)
                             .defaultLovelyLoading()
+                            .setBackgroundColor(android.R.color.holo_red_dark)
                             .setBackgroundOpacity(it)
                             .build()
                 }
@@ -194,6 +195,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
-        private const val DELAY: Long = 10000
+        private const val DELAY: Long = 1000
     }
 }

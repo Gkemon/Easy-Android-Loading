@@ -101,10 +101,10 @@ class LoadingPopup(context: Context) : Dialog(context) {
     override fun hide() {
         if (intentionalDelayInMillSec != 0L) {
             Handler(Looper.getMainLooper()).postDelayed({
-               super.hide()
+                super.dismiss()
             }, intentionalDelayInMillSec)
         } else {
-            super.hide()
+            super.dismiss()
         }
 
     }
@@ -126,7 +126,14 @@ class LoadingPopup(context: Context) : Dialog(context) {
     class LoadingBuilder(activity: Activity) : FinalStep, TypeStep, DelayDurationStep, DelayStep, CustomLayoutStep {
         private var isAutoCancelable = false
         private var intentionalDelayInMillSec: Long = 0
-        var dialog: LoadingPopup
+        var dialog: LoadingPopup? = null
+        @Synchronized
+        fun getDialog(context: Context): LoadingPopup? {
+            if (dialog == null) {
+                dialog = LoadingPopup(context)
+            }
+            return dialog
+        }
 
         @LayoutRes
         private var customLayoutID = 0
@@ -161,11 +168,13 @@ class LoadingPopup(context: Context) : Dialog(context) {
         }
 
         override fun build() {
-            dialog.setIntentionalDelayInMillSec(intentionalDelayInMillSec)
-            if (isAutoCancelable) dialog.setCancelable()
-            dialog.setCustomViewID(customLayoutID, backgroundColor)
-            dialog.setOpacity(opacity)
-            dialog.configureResources()
+            dialog?.apply {
+                setIntentionalDelayInMillSec(intentionalDelayInMillSec)
+                if (isAutoCancelable) setCancelable()
+                setCustomViewID(customLayoutID, backgroundColor)
+                setOpacity(opacity)
+                configureResources()
+            }
         }
 
         override fun defaultLovelyLoading(): FinalStep {
@@ -192,24 +201,33 @@ class LoadingPopup(context: Context) : Dialog(context) {
         private fun registerActivityChangeListener(activity: Activity?) {
             if (activity != null && activity.application != null) {
                 activity.application
-                        .registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {
-                            override fun onActivityCreated(activity: Activity, bundle: Bundle?) {}
-                            override fun onActivityStarted(activity: Activity) {}
-                            override fun onActivityResumed(activity: Activity) {
-                                dialog = LoadingPopup(activity)
-                                build()
-                            }
+                    .registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {
+                        override fun onActivityCreated(activity: Activity, bundle: Bundle?) {
+                            dialog?.hide()
+                            dialog = null
+                            dialog = getDialog(activity)
+                        }
 
-                            override fun onActivityPaused(activity: Activity) {}
-                            override fun onActivityStopped(activity: Activity) {}
-                            override fun onActivitySaveInstanceState(activity: Activity, bundle: Bundle) {}
-                            override fun onActivityDestroyed(activity: Activity) {}
-                        })
+                        override fun onActivityStarted(activity: Activity) {}
+                        override fun onActivityResumed(activity: Activity) {
+                            dialog = getDialog(activity)
+                            build()
+                        }
+
+                        override fun onActivityPaused(activity: Activity) {}
+                        override fun onActivityStopped(activity: Activity) {}
+                        override fun onActivitySaveInstanceState(
+                            activity: Activity,
+                            bundle: Bundle
+                        ) {
+                        }
+
+                        override fun onActivityDestroyed(activity: Activity) {}
+                    })
             }
         }
 
         init {
-            dialog = LoadingPopup(activity)
             registerActivityChangeListener(activity)
         }
     }
@@ -238,14 +256,14 @@ class LoadingPopup(context: Context) : Dialog(context) {
 
         @JvmStatic
         fun showLoadingPopUp() = try {
-            loadingBuilder.dialog.show()
+            loadingBuilder.dialog?.show()
         } catch (e: Exception) {
             Log.e(TAG, "Error in loading popup: " + e.message)
         }
 
         @JvmStatic
         fun hideLoadingPopUp() {
-            loadingBuilder.dialog.hide()
+            loadingBuilder.dialog?.hide()
         }
 
         @JvmStatic
