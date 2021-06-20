@@ -1,5 +1,6 @@
 package com.gk.emon.easyLoadingDemo
 
+import android.content.Intent
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.os.Bundle
@@ -39,10 +40,16 @@ class MainActivity : AppCompatActivity() {
         getInstance(this)
                 .customLoading()
                 .setCustomViewID(R.layout.layout_my_custom_loading, android.R.color.holo_red_dark)
-                .doIntentionalDelay()
-                .setDelayDurationInMillSec(1000)
+                .noIntentionalDelay()
                 .setBackgroundOpacity(70)
                 .build()
+
+
+        LoadingPopup.showLoadingPopUp()
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            startActivity(Intent(this,SecondActivity::class.java))
+        }, 2000)
 
 
     }

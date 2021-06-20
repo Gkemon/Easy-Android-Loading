@@ -123,7 +123,7 @@ class LoadingPopup(context: Context) : Dialog(context) {
         fun build()
     }
 
-    class LoadingBuilder(activity: Activity) : FinalStep, TypeStep, DelayDurationStep, DelayStep, CustomLayoutStep {
+    class LoadingBuilder(private val activity: Activity) : FinalStep, TypeStep, DelayDurationStep, DelayStep, CustomLayoutStep {
         private var isAutoCancelable = false
         private var intentionalDelayInMillSec: Long = 0
         var dialog: LoadingPopup? = null
@@ -168,7 +168,7 @@ class LoadingPopup(context: Context) : Dialog(context) {
         }
 
         override fun build() {
-            dialog?.apply {
+            getDialog(activity)?.apply {
                 setIntentionalDelayInMillSec(intentionalDelayInMillSec)
                 if (isAutoCancelable) setCancelable()
                 setCustomViewID(customLayoutID, backgroundColor)
@@ -201,29 +201,22 @@ class LoadingPopup(context: Context) : Dialog(context) {
         private fun registerActivityChangeListener(activity: Activity?) {
             if (activity != null && activity.application != null) {
                 activity.application
-                    .registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {
-                        override fun onActivityCreated(activity: Activity, bundle: Bundle?) {
-                            dialog?.hide()
-                            dialog = null
-                            dialog = getDialog(activity)
-                        }
-
-                        override fun onActivityStarted(activity: Activity) {}
-                        override fun onActivityResumed(activity: Activity) {
-                            dialog = getDialog(activity)
-                            build()
-                        }
-
-                        override fun onActivityPaused(activity: Activity) {}
-                        override fun onActivityStopped(activity: Activity) {}
-                        override fun onActivitySaveInstanceState(
-                            activity: Activity,
-                            bundle: Bundle
-                        ) {
-                        }
-
-                        override fun onActivityDestroyed(activity: Activity) {}
-                    })
+                        .registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {
+                            override fun onActivityCreated(activity: Activity, bundle: Bundle?) {
+                                dialog?.hide()
+                                dialog = null
+                                dialog = getDialog(activity)
+                            }
+                            override fun onActivityStarted(activity: Activity) {}
+                            override fun onActivityResumed(activity: Activity) {
+                                dialog = getDialog(activity)
+                                build()
+                            }
+                            override fun onActivityPaused(activity: Activity) {}
+                            override fun onActivityStopped(activity: Activity) {}
+                            override fun onActivitySaveInstanceState(activity: Activity, bundle: Bundle) {}
+                            override fun onActivityDestroyed(activity: Activity) {}
+                        })
             }
         }
 
